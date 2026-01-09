@@ -20,8 +20,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Mini Work Tools",
-  description: "Mini Work Tools for freelancers, agencies, and planners",
+  title: "Mini Work Tools — Simple utilities for project planning",
+  description:
+    "Mini Work Tools provides lightweight utilities to help you plan and estimate projects quickly. Includes a Project Timeline Calculator that converts estimated hours into realistic delivery schedules, accounting for weekends and working capacity.",
 };
 
 export default function RootLayout({
