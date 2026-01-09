@@ -24,8 +24,24 @@ const EstimateProjectTimelinePage = () => {
     setLastInput(null);
   };
 
+  const ld = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Project Timeline Calculator",
+    url: "/estimate-project-timeline",
+    description:
+      "Estimate your project's timeline from total hours in seconds. Accounts for weekends and working-day capacity to produce start/end dates, weeks, and delivery dates with buffer and budget calculation.",
+    applicationCategory: "BusinessApplication",
+    operatingSystem: "Web",
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": "/estimate-project-timeline",
+    },
+  };
+
   return (
-    <div className="min-h-screen bg-background py-8 px-4 sm:py-12">
+    <div className="bg-background py-8 px-4 sm:py-12">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
       <div className="mx-auto max-w-6xl">
         {/* Header */}
         <header className="text-center mb-8">

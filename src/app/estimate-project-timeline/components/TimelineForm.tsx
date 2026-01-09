@@ -28,6 +28,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 
 import { TimelineInput } from "../helpers/timeline-calculator";
 import { CURRENCIES } from "@/lib/constants";
+import { DatePicker } from "@/components/ui/date-picker";
 
 interface TimelineFormProps {
   onCalculate: (input: TimelineInput) => void;
@@ -88,9 +89,10 @@ export function TimelineForm({ onCalculate, onReset }: TimelineFormProps) {
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
         {/* Total Hours */}
         <div className="input-group">
-          <Label htmlFor="totalHours" className="flex items-center gap-2">
+          <Label htmlFor="totalHours" className="flex items-center gap-1 md:gap-2">
             <Clock className="h-4 w-4 text-muted-foreground" />
-            Total Estimated Hours
+            <span className="hidden xl:block">Total Estimated Hours</span>
+            <span className="xl:hidden">Total Hours</span>
           </Label>
           <Input
             id="totalHours"
@@ -150,13 +152,9 @@ export function TimelineForm({ onCalculate, onReset }: TimelineFormProps) {
             <Calendar className="h-4 w-4 text-muted-foreground" />
             Project Start Date
           </Label>
-          <Input
-            id="startDate"
-            type="date"
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-            required
-            className="text-lg"
+          <DatePicker
+            date={new Date(startDate)}
+            onSelect={(date) => (date ? setStartDate(date.toDateString() || "") : "")}
           />
         </div>
 
@@ -178,7 +176,7 @@ export function TimelineForm({ onCalculate, onReset }: TimelineFormProps) {
               </TooltipContent>
             </Tooltip>
           </div>
-          <div className="space-y-3">
+          <div className="space-y-1">
             <div className="flex items-center justify-between">
               <Slider
                 value={[bufferPercent]}
@@ -223,7 +221,12 @@ export function TimelineForm({ onCalculate, onReset }: TimelineFormProps) {
       </div>
 
       {/* Action Buttons */}
-      <div className={clsx("flex gap-3", includeBudget ? "justify-between" : "justify-end")}>
+      <div
+        className={clsx(
+          "flex flex-col md:flex-row gap-3",
+          includeBudget ? "justify-between" : "justify-end"
+        )}
+      >
         {includeBudget && (
           <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-end">
             {/* Hourly/Fixed Toggle */}
@@ -245,43 +248,45 @@ export function TimelineForm({ onCalculate, onReset }: TimelineFormProps) {
               </span>
             </div>
 
-            {/* Currency Dropdown */}
-            <Select value={currency} onValueChange={setCurrency}>
-              <SelectTrigger className="w-[110px]">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {CURRENCIES.map((c) => (
-                  <SelectItem key={c.value} value={c.value}>
-                    {c.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <div className="flex flex-row gap-3 items-start sm:items-end">
+              {/* Currency Dropdown */}
+              <Select value={currency} onValueChange={setCurrency}>
+                <SelectTrigger className="w-[110px]">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {CURRENCIES.map((c) => (
+                    <SelectItem key={c.value} value={c.value}>
+                      {c.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
 
-            {/* Rate Input */}
-            <div className="flex-1 min-w-0">
-              <div className="relative">
-                <Input
-                  type="number"
-                  min="0"
-                  step="0.01"
-                  placeholder={isHourly ? "Rate" : "Total Price"}
-                  value={rate}
-                  onChange={(e) => setRate(e.target.value)}
-                  className={isHourly ? "pr-16" : ""}
-                />
-                {isHourly && (
-                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
-                    /hour
-                  </span>
-                )}
+              {/* Rate Input */}
+              <div className="flex-1 min-w-0">
+                <div className="relative">
+                  <Input
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    placeholder={isHourly ? "Rate" : "Total Price"}
+                    value={rate}
+                    onChange={(e) => setRate(e.target.value)}
+                    className={isHourly ? "pr-16" : ""}
+                  />
+                  {isHourly && (
+                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                      /hour
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
           </div>
         )}
-        <div className="flex gap-3 justify-end">
-          <Button type="submit" className="gap-2">
+        <div className="flex gap-3 sm:justify-end">
+          <Button type="submit" className="flex-1 gap-2">
             <Calculator className="h-5 w-5" />
             Estimate Timeline
           </Button>

@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
-import { ThemeProvider } from "next-themes";
+// import { ThemeProvider } from "next-themes";
 
 import { Header } from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import "./globals.css";
+import { ThemeProvider } from "@/context/ThemeProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="light" style={{ colorScheme: "light" }}>
       <head>
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=G-21DFEQYR2P`}
@@ -44,15 +45,16 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        {/* <ThemeProvider attribute="class" defaultTheme="system" enableSystem> */}
+        <ThemeProvider defaultTheme="light" storageKey="miniworktools-theme">
           <Header />
           <main>
             <TooltipProvider>{children}</TooltipProvider>
           </main>
           <Footer />
-        </body>
-      </ThemeProvider>
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

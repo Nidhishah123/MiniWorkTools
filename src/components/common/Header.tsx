@@ -1,19 +1,32 @@
+"use client";
+
+import Image from "next/image";
+import { useTheme } from "@/context/ThemeProvider";
 import { ThemeToggle } from "./ThemeToggle";
 
 export function Header() {
-  return (
-    <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-transparent py-4">
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-12">
-          {/* <a href="#" className="text-2xl font-display font-bold gradient-text hover:opacity-80 transition-opacity">
-            NS
-          </a> */}
+  const { theme } = useTheme();
 
-          <div className="ml-2">
-            <ThemeToggle />
-          </div>
-        </div>
-      </nav>
+  const isDark =
+    theme === "dark" ||
+    (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+
+  const logoSrc = isDark ? "/asset/img/logo_dark.png" : "/asset/img/logo_light.png";
+
+  return (
+    <header className="w-full border-b border-border/50 bg-background/80 backdrop-blur-sm">
+      <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+        <Image
+          src={logoSrc}
+          alt="Mini Work Tools"
+          width={160}
+          height={48}
+          className="h-10 sm:h-12 w-auto"
+          priority={false}
+        />
+
+        <ThemeToggle />
+      </div>
     </header>
   );
 }
