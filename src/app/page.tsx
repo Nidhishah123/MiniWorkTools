@@ -7,7 +7,7 @@ export default function Home() {
 }
 
 export const metadata: Metadata = {
-  title: "Mini Work Tools — Simple utilities for project planning",
+  title: "Mini Work Tools - Simple utilities for project planning",
   description:
     "Mini Work Tools provides lightweight utilities to help you plan and estimate projects quickly. Includes a Project Timeline Calculator that converts estimated hours into realistic delivery schedules, accounting for weekends and working capacity.",
   keywords: [
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Mini Work Tools" }],
   openGraph: {
-    title: "Mini Work Tools — Project Timeline Calculator & Small Utilities",
+    title: "Mini Work Tools - Project Timeline Calculator & Small Utilities",
     description:
       "Use the Project Timeline Calculator to convert estimated hours into delivery timelines that account for weekends and realistic working capacity.",
     url: "https://your-domain.com",
@@ -29,14 +29,14 @@ export const metadata: Metadata = {
     // images: [
     //   {
     //     url: "/og/home.png",
-    //     alt: "Mini Work Tools — Project Timeline Calculator",
+    //     alt: "Mini Work Tools - Project Timeline Calculator",
     //   },
     // ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mini Work Tools — Project Timeline Calculator",
+    title: "Mini Work Tools - Project Timeline Calculator",
     description:
       "Estimate project timelines from total hours with the Project Timeline Calculator. Accounts for weekends and working-day capacity.",
     // images: ["/og/home.png"],

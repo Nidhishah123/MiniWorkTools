@@ -1,31 +1,8 @@
-"use client";
-import { useState } from "react";
 import { Metadata } from "next";
-import { Clock } from "lucide-react";
 
-import {
-  calculateTimeline,
-  TimelineInput,
-  TimelineResult,
-} from "@/app/estimate-project-timeline/helpers/timeline-calculator";
-import { TimelineForm } from "./components/TimelineForm";
-import { TimelineResults } from "./components/TimelineResult";
+import TimelineCalculatorContent from "./components/TimelineCalculatorContent";
 
 const EstimateProjectTimelinePage = () => {
-  const [result, setResult] = useState<TimelineResult | null>(null);
-  const [lastInput, setLastInput] = useState<TimelineInput | null>(null);
-
-  const handleCalculate = (input: TimelineInput) => {
-    const calculatedResult = calculateTimeline(input);
-    setResult(calculatedResult);
-    setLastInput(input);
-  };
-
-  const handleReset = () => {
-    setResult(null);
-    setLastInput(null);
-  };
-
   const ld = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
@@ -42,7 +19,7 @@ const EstimateProjectTimelinePage = () => {
   };
 
   return (
-    <div className="bg-background py-8 px-4 sm:py-12">
+    <div className="bg-background py-8 px-4">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
       <div className="mx-auto max-w-6xl">
         {/* Header */}
@@ -56,26 +33,8 @@ const EstimateProjectTimelinePage = () => {
         </header>
 
         {/* Main Content */}
-        <div className="flex flex-col gap-6">
-          {/* Form Card */}
-          <div className="card-elevated p-4 sm:p-5">
-            <TimelineForm onCalculate={handleCalculate} onReset={handleReset} />
-          </div>
+        <TimelineCalculatorContent />
 
-          {/* Results */}
-          {result && lastInput ? (
-            <div className="flex-1 w-full lg:sticky lg:top-6 lg:self-start">
-              <TimelineResults result={result} totalHours={lastInput.totalHours} />
-            </div>
-          ) : (
-            <div className="hidden lg:flex card-elevated p-6 sm:p-8 items-center justify-center text-muted-foreground">
-              <div className="text-center space-y-2">
-                <Clock className="h-12 w-12 mx-auto opacity-30" />
-                <p>Enter your project details and click "Estimate Timeline"</p>
-              </div>
-            </div>
-          )}
-        </div>
         {/* Usage / How it works */}
         <div className="prose mx-auto mt-8 max-w-6xl text-muted-foreground text-center">
           <h2 className="sr-only">How to use</h2>
@@ -101,7 +60,7 @@ const EstimateProjectTimelinePage = () => {
 };
 
 export const metadata: Metadata = {
-  title: "Project Timeline Calculator — Estimate project duration with weekends",
+  title: "Project Timeline Calculator - Estimate project duration with weekends",
   description:
     "Estimate your project's timeline from total hours in seconds. Accounts for weekends and working-day capacity to produce start/end dates, weeks, and delivery dates with buffer and budget calculation.",
   keywords: [
@@ -119,7 +78,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Mini Work Tools" }],
   openGraph: {
-    title: "Project Timeline Calculator — Estimate project duration with weekends",
+    title: "Project Timeline Calculator - Estimate project duration with weekends",
     description:
       "Estimate your project's timeline from total hours in seconds. Accounts for weekends and working-day capacity to produce start/end dates, weeks, and delivery dates with buffer and budget calculation.",
     url: "/estimate-project-timeline",
@@ -134,7 +93,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Project Timeline Calculator — Estimate project duration with weekends",
+    title: "Project Timeline Calculator - Estimate project duration with weekends",
     description:
       "Estimate your project's timeline from total hours in seconds. Accounts for weekends and working-day capacity to produce start/end dates, weeks, and delivery dates with buffer and budget calculation.",
     images: ["/asset/img/estimate-project-timeline.png"],
