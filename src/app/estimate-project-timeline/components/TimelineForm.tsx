@@ -58,6 +58,19 @@ export function TimelineForm({ onCalculate, onReset }: TimelineFormProps) {
       return;
     }
 
+    // Record click event to Google Analytics if gtag is available
+    if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
+      try {
+        (window as any).gtag("event", "estimate_timeline", {
+          event_category: "engagement",
+          event_label: "Estimate Timeline",
+          value: hours,
+        });
+      } catch (err) {
+        // ignore analytics errors
+      }
+    }
+
     onCalculate({
       totalHours: hours,
       hoursPerDay: perDay,
@@ -81,6 +94,18 @@ export function TimelineForm({ onCalculate, onReset }: TimelineFormProps) {
     setIsHourly(true);
     setRate("");
     setCurrency("USD");
+    // Record reset event to Google Analytics if gtag is available
+    if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
+      try {
+        (window as any).gtag("event", "reset_timeline_estimate_form", {
+          event_category: "engagement",
+          event_label: "Reset Timeline Form",
+        });
+      } catch (err) {
+        // ignore analytics errors
+      }
+    }
+
     onReset();
   };
 

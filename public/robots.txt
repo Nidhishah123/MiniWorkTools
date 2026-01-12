@@ -1,0 +1,29 @@
+# Robots.txt for MiniWorkTools
+# https://mini-work-tools.vercel.app/robots.txt
+
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://mini-work-tools.vercel.app/sitemap.xml
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Specific bot instructions
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# Block access to admin and private areas (if any)
+User-agent: *
+Disallow: /admin/
+Disallow: /_next/
+Disallow: /api/
+
