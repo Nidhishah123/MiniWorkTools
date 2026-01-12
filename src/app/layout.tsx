@@ -33,6 +33,10 @@ export default function RootLayout({
   return (
     <html lang="en" className="light" style={{ colorScheme: "light" }}>
       <head>
+        <meta
+          name="google-site-verification"
+          content="CI45oV03NyLtVVKfSpJraIhVHOrXQIuSBG2oXWqltPA"
+        />
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=G-21DFEQYR2P`}
           strategy="afterInteractive"

@@ -21,17 +21,17 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Mini Work Tools" }],
   openGraph: {
-    title: "Mini Work Tools - Project Timeline Calculator & Small Utilities",
+    title: "Mini Work Tools - Small Utility Tools",
     description:
       "Use the Project Timeline Calculator to convert estimated hours into delivery timelines that account for weekends and realistic working capacity.",
-    url: "https://your-domain.com",
+    url: "https://mini-work-tools.vercel.app/",
     siteName: "Mini Work Tools",
-    // images: [
-    //   {
-    //     url: "/og/home.png",
-    //     alt: "Mini Work Tools - Project Timeline Calculator",
-    //   },
-    // ],
+    images: [
+      {
+        url: "https://mini-work-tools.vercel.app/asset/img/logo_light.png",
+        alt: "Mini Work Tools - Project Timeline Calculator",
+      },
+    ],
     type: "website",
   },
   twitter: {
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     title: "Mini Work Tools - Project Timeline Calculator",
     description:
       "Estimate project timelines from total hours with the Project Timeline Calculator. Accounts for weekends and working-day capacity.",
-    // images: ["/og/home.png"],
+    images: ["https://mini-work-tools.vercel.app/asset/img/logo_light.png"],
   },
   robots: { index: true, follow: true },
 };

@@ -81,11 +81,11 @@ export const metadata: Metadata = {
     title: "Project Timeline Calculator - Estimate project duration with weekends",
     description:
       "Estimate your project's timeline from total hours in seconds. Accounts for weekends and working-day capacity to produce start/end dates, weeks, and delivery dates with buffer and budget calculation.",
-    url: "/estimate-project-timeline",
+    url: "https://mini-work-tools.vercel.app/estimate-project-timeline",
     siteName: "Mini Work Tools",
     images: [
       {
-        url: "/asset/img/estimate-project-timeline.png",
+        url: "https://mini-work-tools.vercel.app/asset/img/estimate-project-timeline.png",
         alt: "Project Timeline Calculator",
       },
     ],
@@ -96,7 +96,7 @@ export const metadata: Metadata = {
     title: "Project Timeline Calculator - Estimate project duration with weekends",
     description:
       "Estimate your project's timeline from total hours in seconds. Accounts for weekends and working-day capacity to produce start/end dates, weeks, and delivery dates with buffer and budget calculation.",
-    images: ["/asset/img/estimate-project-timeline.png"],
+    images: ["https://mini-work-tools.vercel.app/asset/img/estimate-project-timeline.png"],
   },
   robots: { index: true, follow: true },
 };
