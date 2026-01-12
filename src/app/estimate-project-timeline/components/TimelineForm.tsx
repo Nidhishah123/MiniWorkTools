@@ -208,11 +208,16 @@ export function TimelineForm({ onCalculate, onReset }: TimelineFormProps) {
             </Label>
             <Tooltip>
               <TooltipTrigger asChild>
-                <button type="button" className="p-1 rounded-full hover:bg-accent">
+                <button
+                  type="button"
+                  className="p-1 rounded-full hover:bg-accent"
+                  aria-label="Buffer information"
+                  aria-describedby="buffer-tooltip"
+                >
                   <Info className="h-4 w-4 text-muted-foreground" />
                 </button>
               </TooltipTrigger>
-              <TooltipContent side="top" className="max-w-[200px]">
+              <TooltipContent id="buffer-tooltip" side="top" className="max-w-[200px]">
                 <p>Accounts for delays, meetings, revisions, and unexpected work</p>
               </TooltipContent>
             </Tooltip>
