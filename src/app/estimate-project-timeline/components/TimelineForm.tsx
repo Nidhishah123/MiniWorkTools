@@ -41,6 +41,7 @@ export function TimelineForm({ onCalculate, onReset }: TimelineFormProps) {
   const [workingDaysPerWeek, setWorkingDaysPerWeek] = useState<number>(5);
   const [startDate, setStartDate] = useState<string>(new Date().toISOString().split("T")[0]);
   const [bufferPercent, setBufferPercent] = useState<number>(15);
+  const [formError, setFormError] = useState<string>("");
 
   // Budget fields
   const [includeBudget, setIncludeBudget] = useState<boolean>(false);
@@ -55,8 +56,13 @@ export function TimelineForm({ onCalculate, onReset }: TimelineFormProps) {
     const perDay = parseFloat(hoursPerDay);
 
     if (isNaN(hours) || isNaN(perDay) || hours <= 0 || perDay <= 0) {
+      setFormError("Please enter valid positive numbers for hours and hours per day.");
+      window.setTimeout(() => setFormError(""), 4000);
       return;
     }
+
+    // clear previous form errors
+    if (formError) setFormError("");
 
     // Record click event to Google Analytics if gtag is available
     if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
@@ -124,7 +130,7 @@ export function TimelineForm({ onCalculate, onReset }: TimelineFormProps) {
             type="number"
             min="1"
             step="0.5"
-            placeholder="120"
+            placeholder="Total Estimated Hours"
             value={totalHours}
             onChange={(e) => setTotalHours(e.target.value)}
             required
@@ -177,16 +183,26 @@ export function TimelineForm({ onCalculate, onReset }: TimelineFormProps) {
             <Calendar className="h-4 w-4 text-muted-foreground" />
             Project Start Date
           </Label>
+          {/* Hidden native date input for screen readers and keyboard users */}
+          <input
+            id="startDate"
+            type="date"
+            className="sr-only"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+            aria-label="Project start date"
+          />
           <DatePicker
             date={new Date(startDate)}
-            onSelect={(date) => (date ? setStartDate(date.toDateString() || "") : "")}
+            onSelect={(date) => (date ? setStartDate(date.toISOString().split("T")[0]) : "")}
+            aria-label="Project start date picker"
           />
         </div>
 
         {/* Buffer Slider */}
         <div className="input-group col-span-2">
           <div className="flex items-center justify-between">
-            <Label className="flex items-center gap-2">
+            <Label id="buffer-label" className="flex items-center gap-2">
               <Percent className="h-4 w-4 text-muted-foreground" />
               Buffer / Contingency
             </Label>
@@ -210,6 +226,7 @@ export function TimelineForm({ onCalculate, onReset }: TimelineFormProps) {
                 max={30}
                 step={1}
                 className="flex-1"
+                aria-labelledby="buffer-label"
               />
               <span className="ml-4 w-12 text-right font-semibold text-foreground">
                 {bufferPercent}%
@@ -224,17 +241,26 @@ export function TimelineForm({ onCalculate, onReset }: TimelineFormProps) {
       </div>
 
       {/* Budget Calculator Section */}
-      <div className="col-span-1 md:col-span-3 input-group border-t border-border pt-4">
+      <fieldset className="col-span-1 md:col-span-3 input-group border-t border-border pt-4">
+        <legend className="sr-only">Budget Calculator</legend>
         <div className="flex items-center mb-4 gap-6">
           <Label className="flex items-center gap-2">
             <DollarSign className="h-4 w-4 text-muted-foreground" />
             Calculate Budget
           </Label>
-          <Switch checked={includeBudget} onCheckedChange={setIncludeBudget} />
+          <Switch
+            checked={includeBudget}
+            onCheckedChange={setIncludeBudget}
+            aria-label="Toggle budget calculator"
+          />
 
           <Tooltip>
             <TooltipTrigger asChild>
-              <button type="button" className="p-1 rounded-full hover:bg-accent">
+              <button
+                type="button"
+                className="p-1 rounded-full hover:bg-accent"
+                aria-label="Budget help"
+              >
                 <Info className="h-4 w-4 text-muted-foreground" />
               </button>
             </TooltipTrigger>
@@ -243,7 +269,7 @@ export function TimelineForm({ onCalculate, onReset }: TimelineFormProps) {
             </TooltipContent>
           </Tooltip>
         </div>
-      </div>
+      </fieldset>
 
       {/* Action Buttons */}
       <div
@@ -311,11 +337,20 @@ export function TimelineForm({ onCalculate, onReset }: TimelineFormProps) {
           </div>
         )}
         <div className="flex gap-3 sm:justify-end">
-          <Button type="submit" className="flex-1 gap-2">
+          <div role="status" aria-live="assertive" className="sr-only">
+            {formError}
+          </div>
+          <Button type="submit" className="flex-1 gap-2" aria-label="Estimate timeline">
             <Calculator className="h-5 w-5" />
             Estimate Timeline
           </Button>
-          <Button type="button" variant="outline" onClick={handleReset} className="gap-2">
+          <Button
+            type="button"
+            variant="outline"
+            onClick={handleReset}
+            className="gap-2"
+            aria-label="Reset form"
+          >
             <RotateCcw className="h-4 w-4" />
             Reset
           </Button>

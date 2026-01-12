@@ -37,7 +37,7 @@ const EstimateProjectTimelinePage = () => {
 
         {/* Usage / How it works */}
         <div className="prose mx-auto mt-8 max-w-6xl text-muted-foreground text-center">
-          <h2 className="sr-only">How to use</h2>
+          <h4 className="sr-only">How to use</h4>
           <p>
             This <b>Project Timeline Calculator</b> helps you quickly turn effort into a realistic
             delivery plan. Just enter your total estimated hours, how many hours you work per day,

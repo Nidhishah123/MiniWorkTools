@@ -1,3 +1,5 @@
+"use client";
+
 export default function Footer() {
   return (
     <footer className="w-full bg-gradient-to-b from-background to-muted/30 border-t border-border/50">
@@ -9,13 +11,26 @@ export default function Footer() {
             Have a brilliant idea?
           </h3>
           <p className="text-muted-foreground text-sm relative">
-            Whether it's a suggestion to improve this tool or an exciting new product concept, we'd
-            love to collaborate and bring your vision to life.
+            Whether it&apos;s a suggestion to improve this tool or an exciting new product concept,
+            we&apos;d love to collaborate and bring your vision to life.
           </p>
           <a
             href="https://technurture.in/contact-us"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => {
+              if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
+                try {
+                  (window as any).gtag("event", "get_in_touch_click", {
+                    event_category: "engagement",
+                    event_label: "Footer Get in touch",
+                  });
+                } catch (e) {
+                  // ignore analytics errors
+                }
+              }
+            }}
+            aria-label="Get in touch — opens in new tab"
             className="inline-flex items-center gap-2 mt-4 text-sm font-medium text-primary hover:text-primary/80 transition-colors relative"
           >
             Get in touch →
@@ -28,6 +43,18 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-primary transition-colors"
+              onClick={() => {
+                if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
+                  try {
+                    (window as any).gtag("event", "developed_by_tech_nurture_click", {
+                      event_category: "engagement",
+                      event_label: "Footer Tech Nurture Link",
+                    });
+                  } catch (e) {
+                    // ignore analytics errors
+                  }
+                }
+              }}
             >
               Tech Nurture IT Solutions
             </a>
